@@ -81,7 +81,7 @@ background-image: url(img/icon_lettering_color_large-faded.png)
 background-size: contain
 background-position: 50% 50%
 
-# Modifying Peer Review for Statistical Software
+# Expanding Peer Review for Statistical Software
 
 -  Many new challenges for statistical software
 -  A community-driven process for what needed to be included in standards
@@ -92,39 +92,6 @@ background-position: 50% 50%
    - Tools and documentation to support package authors
 
 Standards and process all documented at: <https://stats-devguide.ropensci.org/>
----
-class: left, top
-background-image: url(img/SloanLogo-1B-SMALL-Gold-Blue.png)
-background-size: contain
-background-position: 50% 50%
-
---
-
-# Expanding Software Peer Review
-
---
-
-# Expand Scope to include<br>Statistical Software
-
----
-class: left, top
-background-image: url(img/icon_lettering_color_large-faded.png)
-background-size: contain
-background-position: 50% 50%
-
-# Expanding Software Peer Review
-
-# Expand Scope to include<br>Statistical Software
-
-
---
-
-- Implement tools to support statistical software and automated review
-  processes
-
-- Write standards for how statistical software<br>should be developed
-
-- Assess software against those standards
 
 ---
 class: left, top
