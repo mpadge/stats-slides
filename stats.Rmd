@@ -106,7 +106,7 @@ background-position: 50% 50%
 
 --
 
-# `r icons::icon_style (icons::fontawesome("arrow-right"), scale = 1)` Expand Scope to include<br>Statistical Software
+# Expand Scope to include<br>Statistical Software
 
 ---
 class: left, top
@@ -116,7 +116,7 @@ background-position: 50% 50%
 
 # Expanding Software Peer Review
 
-# `r icons::icon_style (icons::fontawesome("arrow-right"), scale = 1)` Expand Scope to include<br>Statistical Software
+# Expand Scope to include<br>Statistical Software
 
 
 --
