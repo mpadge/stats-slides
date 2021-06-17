@@ -470,6 +470,69 @@ x <- c ("[1] Parameter [x] is not specified as integer, yet only used as such;\n
 message (x)
 ```
 
+---
+class: left, top
+background-image: url(img/icon_lettering_color_large-faded.png)
+background-size: contain
+background-position: 50% 50%
+
+# Tools for Package Authors
+
+- All tools can and should be used from the moment a package first takes form
+
+- `srr` = "software review roclets" for documenting standards compliance
+  within a package
+
+- `autotest` for automated testing
+
+- .large[ `pkgcheck` to confirm whether a (statistics or other) package is ready for
+  submission]
+
+
+---
+class: left, top
+background-image: url(img/icon_lettering_color_large-faded.png)
+background-size: contain
+background-position: 50% 50%
+
+# The 'pkgcheck' package
+
+## Why?
+
+- To confirm whether a package is ready for submission
+
+- To provide a statistical overview of package structure relative to all other
+  CRAN packages
+
+- To generate useful information for package reviewers
+
+
+---
+class: left, top
+background-image: url(img/icon_lettering_color_large-faded.png)
+background-size: contain
+background-position: 50% 50%
+
+# The 'pkgcheck' package
+
+```{r pkgcheck-run, eval = FALSE, echo = FALSE}
+path <- file.path (here::here (), "demo")
+library (pkgcheck)
+chk <- pkgcheck (path)
+saveRDS (chk, "pkgcheck-demo.Rds")
+```
+```{r pkgcheck1-fakey, eval = FALSE, echo = TRUE}
+library (pkgcheck)
+chk <- pkgcheck (path)
+summary (chk)
+```
+
+```{r pkgcheck-out, echo = FALSE, collapse = TRUE}
+library (pkgcheck)
+chk <- readRDS ("pkgcheck-demo.Rds")
+summary (chk)
+```
+
 
 
 ---
