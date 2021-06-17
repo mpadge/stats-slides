@@ -1,6 +1,7 @@
 ---
-title: "rOpenSci Statistical<br>Software Review"
-author: "Mark Padgham & Noam Ross<br> rOpenSci & EcoHealth Alliance<br>Münster, Germany & New York, USA"
+title: "rOpenSci Statistical Software Review"
+subtitle: "A Community Introduction to Standards and Package Development Tools"
+author: "Mark Padgham & Noam Ross<br>June 18, 2021<br>Münster, Germany & New York, USA"
 output:
       xaringan::moon_reader:
             #yolo:
@@ -29,10 +30,18 @@ knitr::opts_chunk$set(cache = TRUE,
                       #message = FALSE)
 ```
 
-class: left, middle
-background-image: url(img/icon_lettering_color_large.png)
-background-size: contain
-background-position: 50% 50%
+class: left
+
+# Agenda (starts 4PM GMT)
+
+- Introduction (5 min)
+- rOpenSci Peer Review + Statistical Standards - Noam Ross (15 min)
+- Package Development tools: *srr*, **autotest**, and **pkgcheck**  - Mark Padgham (25 min)
+- Q & A (15 min)
+
+Collaborative note-taking (Please add your name, questions, notes): <https://bit.ly/ro-stats-tools>
+
+Find all videos and resources from our Community Calls: <https://ropensci.org/commcalls/>
 
 ---
 class: left, top
@@ -40,21 +49,14 @@ background-image: url(img/icon_lettering_color_large-faded.png)
 background-size: contain
 background-position: 50% 50%
 
-# rOpenSci: Transforming science through open data, software & reproducibility
+# rOpenSci Software Peer Review
 
-"*We help develop R packages for the sciences via community driven learning,
-review and maintenance of contributed software in the R ecosystem*"
+- A peer-review system integrating practices from software development and academic publishing
+- Designed to improve software and expand a community of practices, via transparent, constructive, non-adversarial and open review"
+- Has historically covered packages that support the data management life cycle
+- 7 years experience, hundreds of packages, authors and reviewers
 
----
-class: left, top
-background-image: url(img/icon_lettering_color_large-faded.png)
-background-size: contain
-background-position: 50% 50%
-
-# rOpenSci & Software Peer Review
-
-"packages contributed by the community undergo a transparent, constructive, non
-adversarial and open review process."
+Example Review: <https://github.com/ropensci/software-review/issues/409>
 
 ---
 class: left, top
@@ -62,7 +64,7 @@ background-image: url(img/icon_lettering_color_large-faded.png)
 background-size: contain
 background-position: 50% 50%
 
-# rOpenSci & Software Peer Review: Why?
+# rOpenSci & Software Peer Review: Why Participate?
 
 - Feedback & improved software quality
 - Support from rOpenSci
@@ -70,43 +72,8 @@ background-position: 50% 50%
 - Cross-linking with other software
 - Publications
 
----
-class: left, top
-background-image: url(img/icon_lettering_color_large-faded.png)
-background-size: contain
-background-position: 50% 50%
-
-# rOpenSci & Software Peer Review: Scope
-
-Current scope includes software for:
-
-- data retrieval
-- data extraction
-- data munging
-- data deposition
-- data validation and testing
-- workflow automation
-- version control
-- citation management and bibliometrics
-- scientific software wrappers
-- field and laboratory reproducibility tools
-- database software bindings
-- geospatial data
-- text analysis
-
----
-class: left, top
-background-image: url(img/SloanLogo-1B-SMALL-Gold-Blue.png)
-background-size: contain
-background-position: 50% 50%
-
---
-
-# Expanding Software Peer Review
-
---
-
-# Expand Scope to include<br>Statistical Software
+Previously these benefits were unavailable for authors writing packages that
+implemented statistical algorithms. 
 
 ---
 class: left, top
@@ -114,19 +81,17 @@ background-image: url(img/icon_lettering_color_large-faded.png)
 background-size: contain
 background-position: 50% 50%
 
-# Expanding Software Peer Review
+# Expanding Peer Review for Statistical Software
 
-# Expand Scope to include<br>Statistical Software
+-  Many new challenges for statistical software
+-  A community-driven process for what needed to be included in standards
+-  Sub-standards for different statistical fields
+-  A process for introducing new standards
+   - Graded badging (standard, silver, gold)
+   - Community events (like this)
+   - Tools and documentation to support package authors
 
-
---
-
-- Implement tools to support statistical software and automated review
-  processes
-
-- Write standards for how statistical software<br>should be developed
-
-- Assess software against those standards
+Standards and process all documented at: <https://stats-devguide.ropensci.org/>
 
 ---
 class: left, top
