@@ -25,7 +25,18 @@ options(htmltools.dir.version = FALSE)# suppress version num in subdir name
 knitr::opts_chunk$set(cache = TRUE,
                       warning = FALSE)
                       #message = FALSE)
+library (autotest)
+library (srr)
+library (pkgcheck)
+if (packageVersion ("autotest") < '0.0.2.81')
+    stop ("autotest package is not at latest version")
+(packageVersion ("srr") )
+if (packageVersion ("srr") < '0.0.1.75')
+    stop ("srr package is not at latest version")
+if (packageVersion ("pkgcheck") < '0.0.1.339')
+    stop ("pkgcheck package is not at latest version")
 ```
+
 class: left, top
 background-image: url(img/icon_lettering_color_large-faded.png)
 background-size: contain
@@ -461,12 +472,12 @@ autotest_package (path, test = TRUE)$content
 ```{r autotest2, eval = TRUE, echo = FALSE, collapse = TRUE}
 x <- c ("[1] Parameter [x] is not specified as integer, yet only used as such;\n",
         "    please use '1L' for integer, or 1.0 for non-integer values.\n\n",
-        "[2] Parameter [x] of function [addtwo] is assumed to be a single numeric,\n",
-        "    but responds to vectors of length > 1\n\n",
+        "[2] Parameter [x] of function [addtwo] is only used a a single\n",
+        "    numeric value, but responds to vectors of length > 1\n\n",
         "[3] Parameter [y] is not specified as integer, yet only used as such;\n",
         "    please use '1L' for integer, or 1.0 for non-integer values.\n\n",
-        "[4] Parameter [y] of function [addtwo] is assumed to be a single numeric,\n",
-        "    but responds to vectors of length > 1")
+        "[4] Parameter [y] of function [addtwo] is only used a a single\n",
+        "    numeric value, but responds to vectors of length > 1")
 message (x)
 ```
 
@@ -568,11 +579,11 @@ background-position: 50% 50%
 
 - Now accepting submissions
 
-- Use of `autotest` will enable reviews to better focus on substantive issues of software design and quality
-
 - `srr` provides a comprehensive method for documenting standards
   compliance within code itself
 
-- Associated `html` reports facilitate rapid review of standards compliance
+- Use of `autotest` will enable reviews to better focus on substantive issues of software design and quality
+
+- `pkgcheck` and associated `html` reports facilitate rapid review of standards compliance
 
 - Result should be high quality statistical software with open and demonstrable compliance with standards
