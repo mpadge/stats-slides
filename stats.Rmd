@@ -420,7 +420,7 @@ out <- capture.output (roxygen2::roxygenise (path))
 library (autotest)
 autotest_package (path, test = TRUE)
 ```
-```{r autotest1, eval = FALSE, echo = FALSE, collapse = TRUE}
+```{r autotest1, eval = TRUE, echo = FALSE, collapse = TRUE}
 library (autotest)
 path <- file.path (here::here (), "demo")
 a1 <- autotest_package (path, test = TRUE)

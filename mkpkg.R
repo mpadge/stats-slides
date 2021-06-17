@@ -43,5 +43,4 @@ writeLines (d, file.path (path, "DESCRIPTION"))
 writeLines (p, file.path (path, "R", "demo-package.R"))
 writeLines (x, file.path (path, "R", "test.R"))
 devtools::document (path)
-devtools::install(path)
 
