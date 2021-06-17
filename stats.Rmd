@@ -46,7 +46,7 @@ background-position: 50% 50%
 
 - Introduction (5 min)
 - rOpenSci Peer Review + Statistical Standards - Noam Ross (15 min)
-- Package Development tools: *srr*, **autotest**, and **pkgcheck**  - Mark Padgham (25 min)
+- Package Development tools: **srr**, **autotest**, and **pkgcheck**  - Mark Padgham (25 min)
 - Q & A (15 min)
 
 Collaborative note-taking (Please add your name, questions, notes): <https://bit.ly/ro-stats-tools>
