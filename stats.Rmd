@@ -1,12 +1,9 @@
 ---
-title: "rOpenSci Statistical Software Review"
+title: "rOpenSci Statistical<br>Software Review"
 subtitle: "A Community Introduction to Standards and Package Development Tools"
 author: "Mark Padgham & Noam Ross<br>June 18, 2021<br>Münster, Germany & New York, USA"
 output:
       xaringan::moon_reader:
-            #yolo:
-            #            img: img/fortune-beach.png
-            #            times: 2
             lib_dir: libs
             css: xaringan-themer.css
             self_contained: true
@@ -29,8 +26,10 @@ knitr::opts_chunk$set(cache = TRUE,
                       warning = FALSE)
                       #message = FALSE)
 ```
-
-class: left
+class: left, top
+background-image: url(img/icon_lettering_color_large-faded.png)
+background-size: contain
+background-position: 50% 50%
 
 # Agenda (starts 4PM GMT)
 
@@ -103,10 +102,10 @@ background-position: 50% 50%
 
 - All tools can and should be used from the moment a package first takes form
 
-- `autotest` for automated testing
-
-- `srr` = *s*oftware *r*review *r*oclets for documenting standards compliance
+- `srr` = "software review roclets" for documenting standards compliance
   within a package
+
+- `autotest` for automated testing
 
 - `pkgcheck` to confirm whether a (statistics or other) package is ready for
   submission
@@ -118,44 +117,15 @@ background-image: url(img/icon_lettering_color_large-faded.png)
 background-size: contain
 background-position: 50% 50%
 
-# The 'autotest' package
+# Software Review Roclets:<br>The 'srr' package
 
----
-class: left, top
-background-image: url(img/icon_lettering_color_large-faded.png)
-background-size: contain
-background-position: 50% 50%
+## Why?
 
-# The 'autotest' package
+- Standards hard to keep track of for both authors and reviewers
 
-- A form of "mutation testing"
+- `srr` lets you build standards tracking into your development process
 
-- Identifies all inputs to all functions through extracting documented example
-  code
-
-- Mutates those inputs
-
----
-class: left, top
-background-image: url(img/icon_lettering_color_large-faded.png)
-background-size: contain
-background-position: 50% 50%
-
-# The 'autotest' package
-
-Tests include:
-
-- Ranges of single-valued numeric parameters
-
-- Lengths of vectors
-
-- Mutation of character-valued inputs
-
-- Mutation of class attributes
-
-- Mutation of column types in tabular inputs
-
-- Also matches input and output types to descriptions
+- Enables complete documentation of standards compliance
 
 
 ---
@@ -164,109 +134,26 @@ background-image: url(img/icon_lettering_color_large-faded.png)
 background-size: contain
 background-position: 50% 50%
 
-# The 'autotest' package
-
-```{r autotest, eval = FALSE, echp = TRUE}
-library (autotest)
-system.time (
-    x <- autotest_package (package = "stats",
-                           functions = "var",
-                           test = TRUE)
-)
-```
-```{r save-autotest-results, echo = FALSE, eval = FALSE}
-saveRDS (x, "autotest-results-TRUE.Rds")
-saveRDS (x, "autotest-results-FALSE.Rds")
-```
-
-```{r autotest-output, eval = TRUE, echo = FALSE, message = TRUE, collapse = TRUE}
-cli::cli_h2 ("autotesting stats")
-message ("")
-cli::cli_alert_success ("[1 / 4]: var")
-cli::cli_alert_success ("[2 / 4]: cor")
-cli::cli_alert_success ("[3 / 4]: cov")
-cli::cli_alert_success ("[4 / 4]: cov")
-c (user = 22.26, system = 0.003, elapsed = 24.807)
-```
-
----
-class: left, top
-background-image: url(img/icon_lettering_color_large-faded.png)
-background-size: contain
-background-position: 50% 50%
-
-# The 'autotest' package
-
-```{r autotest-results, eval = TRUE, echo = FALSE, message = TRUE, collapse = TRUE}
-x <- readRDS ("autotest-results-TRUE.Rds")
-x <- x [order (x$type, decreasing = TRUE), ]
-index <- which (x$type == "diagnostic")
-x [index, ] <- x [index [order (x$test_name [index])], ]
-rownames (x) <- NULL
-#DT::datatable (x, options = list (pageLength = 100))
-print (x)
-```
-
----
-class: left, top
-background-image: url(img/icon_lettering_color_large-faded.png)
-background-size: contain
-background-position: 50% 50%
-
-# The 'autotest' package
-
-### `stats::var`
-
-- Conducts `r nrow (readRDS ("autotest-results-FALSE.Rds"))` tests on 4 functions (use `test = FALSE` to see)
-
-- Yields `r nrow (readRDS ("autotest-results-TRUE.Rds"))` notes
-
-- 2 warnings for parameters with no demonstrated usage
-
-Use throughout development should help to ensure consistent response to all
-parameters of all functions prior to submission
-
----
-class: left, top
-background-image: url(img/icon_lettering_color_large-faded.png)
-background-size: contain
-background-position: 50% 50%
-
-# Expanding Software Peer Review
-
-- Software must adhere to detailed, category-specific standards
-
-- Adherence to standards is documented within the software itself
-
-
----
-class: left, top
-background-image: url(img/icon_lettering_color_large-faded.png)
-background-size: contain
-background-position: 50% 50%
-
-# Software Review Roclets: The 'srr' package
-
---
+# Software Review Roclets:<br>The 'srr' package
 
 ## roxygen2
 
 ```{r roxygen-ex}
-#' Function description
+#' Function to add two numbers
 #'
-#' @rdtitle NewFunction
+#' @rdtitle Addtwo
 #' @param x First input
 #' @param y Second input
-#' @return Something different
+#' @return Sum of x and y
 #' @export
-myfunction <- function (x, y) {
-    # ...
+addtwo <- function (x, y) {
+    return (x + y)
 }
 ```
 
 --
 
-Run `roxygen2::roxygenise()` to turn that into `/man` file `NewFucntion.Rd`
+Run `roxygen2::roxygenise()` to turn<br>that into `/man` file `Addtwo.Rd`
 
 
 ---
@@ -275,7 +162,7 @@ background-image: url(img/icon_lettering_color_large-faded.png)
 background-size: contain
 background-position: 50% 50%
 
-# Software Review Roclets: The 'srr' package
+# Software Review Roclets:<br>The 'srr' package
 
 - `roxygen2` is extensible, and allows custom "roclets"
 
@@ -284,6 +171,17 @@ background-position: 50% 50%
 - Each "roclet" has a generic `process` method, and an `output` method to
   output information to the `.Rd` file
 
+- Setting `output` method to `NULL` allows new tags with arbitrary `process`
+  methods that do not appear in package documentation.
+
+---
+class: left, top
+background-image: url(img/icon_lettering_color_large-faded.png)
+background-size: contain
+background-position: 50% 50%
+
+# Software Review Roclets:<br>The 'srr' package
+
 - `srr` introduces new tags for documenting standards:
     - `@srrstats` for adherence to standards
     - `@srrstatsNA` for non-applicable standards
@@ -291,6 +189,73 @@ background-position: 50% 50%
 
 - Running `roxygen2::roxygenise()` automatically generates a summary report of
   standards compliance on screen
+
+---
+class: left, top
+background-image: url(img/icon_lettering_color_large-faded.png)
+background-size: contain
+background-position: 50% 50%
+
+# Software Review Roclets:<br>The 'srr' package
+
+```{r roxygen-ex-repeat}
+#' Function to add two numbers
+#'
+#' @rdtitle Addtwo
+#' @param x First input
+#' @param y Second input
+#' @return Sum of x and y
+#' @export
+addtwo <- function (x, y) {
+    return (x + y)
+}
+```
+
+
+---
+class: left, top
+background-image: url(img/icon_lettering_color_large-faded.png)
+background-size: contain
+background-position: 50% 50%
+
+# Software Review Roclets:<br>The 'srr' package
+
+```{r roxygen-ex-srr}
+#' Function to add two numbers
+#'
+#' @rdtitle Addtwo
+#' @param x First input
+#' @param y Second input
+#' @return Sum of x and y
+#' @export
+#'
+#' @srrstats {G1.1} Primary citation for this function follows
+#' @references Smith & Jones (2021) A new addition algorithm
+addtwo <- function (x, y) {
+    return (x + y)
+}
+```
+
+---
+class: left, top
+background-image: url(img/icon_lettering_color_large-faded.png)
+background-size: contain
+background-position: 50% 50%
+
+# Software Review Roclets:<br>The 'srr' package
+
+```{r roxygenise-demo1, eval = FALSE}
+roxygen2::roxygenise(path)
+```
+
+```{r roxygenise-demo1-output, echo = FALSE, message = TRUE, collapse = TRUE}
+cli::cli_alert_info ("Loading demo")
+cli::cli_h1 ("rOpenSci Statistical Software Standards")
+cli::cli_h3 ("@srrstats standards:")
+cli::cli_li ("[G1.1] in function 'addtwo()' on line#11 of file [R/test.R]")
+```
+
+
 
 ---
 class: left, top
@@ -308,28 +273,82 @@ background-position: 50% 50%
 - Standards are addressed by changing tag to `@srrstats` and moving to location
   within code where standard is addressed
 
+---
+class: left, top
+background-image: url(img/icon_lettering_color_large-faded.png)
+background-size: contain
+background-position: 50% 50%
+
+# The 'srr' package: How To
+
+In package directory:
+
+```{r srr-stats-roxy, eval = FALSE}
+srr_stats_roxygen (category = "ml")
+```
+```{r srr-stats-roxy-tmp, echo = FALSE, message = TRUE, collapse = TRUE}
+library (srr)
+d <- srr_stats_pkg_skeleton ()
+z <- file.remove (file.path (d, "R", "srr-stats-standards.R"))
+#withr::with_dir (d, srr_stats_roxygen (category = "ml"))
+wd <- setwd (d)
+srr_stats_roxygen (category = "ml")
+setwd (wd)
+```
+
+---
+class: left, top
+background-image: url(img/icon_lettering_color_large-faded.png)
+background-size: contain
+background-position: 50% 50%
+
+# The 'srr' package: How To
+
+```{r filepath, echo = FALSE}
+f <- file.path (d, "R", "srr-stats-standards.R")
+s <- readLines (f)
+```
+
+
+```{r srr-stats-roxy-ex, echo = FALSE, message = TRUE, collapse = TRUE}
+s [1:99]
+```
+
+
+---
+class: left, top
+background-image: url(img/icon_lettering_color_large-faded.png)
+background-size: contain
+background-position: 50% 50%
+
+# The 'srr' package: How To
+
+
+```{r srr-stats-roxy-ex-short, echo = FALSE, message = TRUE, collapse = TRUE}
+s [1:14]
+```
+
+File has:
+
+- `r length (s)` lines
+- `r length(grep("^#' @srrstats", s))` standards
+
+---
+class: left, top
+background-image: url(img/icon_lettering_color_large-faded.png)
+background-size: contain
+background-position: 50% 50%
+
+# Software Review Roclets: The 'srr' package
+
 - `srr_report()` function generates a `.html` report of standards compliance
 
----
-class: left, top
-background-image: url(img/icon_lettering_color_large-faded.png)
-background-size: contain
-background-position: 50% 50%
+- [Example](https://ropensci-review-tools.github.io/roreviewapi/static/demo_srr77dfe392.html)
 
-# Software Review Roclets: The 'srr' package
+--
 
-```{r roxygen-ex-repeat}
-#' Function description
-#'
-#' @rdtitle NewFunction
-#' @param x First input
-#' @param y Second input
-#' @return Something different
-#' @export
-myfunction <- function (x, y) {
-    # ...
-}
-```
+- Also extensible, with alternative standards substituted by modifying a single
+  URL
 
 ---
 class: left, top
@@ -337,22 +356,17 @@ background-image: url(img/icon_lettering_color_large-faded.png)
 background-size: contain
 background-position: 50% 50%
 
-# Software Review Roclets: The 'srr' package
+# Tools for Package Authors
 
-```{r roxygen-ex-srr}
-#' Function description
-#'
-#' @rdtitle NewFunction
-#' @param x First input
-#' @param y Second input
-#' @return Something different
-#' @export
-#'
-#' @srrstats {G1.1} This standard is addressed here through ...
-myfunction <- function (x, y) {
-    # ...
-}
-```
+- All tools can and should be used from the moment a package first takes form
+
+- `srr` = "software review roclets" for documenting standards compliance
+  within a package
+
+- .large[ `autotest` for automated testing ]
+
+- `pkgcheck` to confirm whether a (statistics or other) package is ready for
+  submission
 
 ---
 class: left, top
@@ -360,20 +374,103 @@ background-image: url(img/icon_lettering_color_large-faded.png)
 background-size: contain
 background-position: 50% 50%
 
-# Software Review Roclets: The 'srr' package
+# The 'autotest' package
 
-```{r roxygen-srr-demo, eval = FALSE}
-library (srr)
-path <- srr_stats_pkg_skeleton()
-roxygen2::roxygenise (path)
+## Why?
+
+- Make code more robust
+
+- Find bugs before other users or reviewers find them
+
+---
+class: left, top
+background-image: url(img/icon_lettering_color_large-faded.png)
+background-size: contain
+background-position: 50% 50%
+
+# The 'autotest' package
+
+## How?
+
+- A form of "mutation testing"
+
+- Identifies all inputs to all functions through extracting documented example
+  code
+
+- Mutates those inputs
+
+- Also matches input and output types to descriptions
+
+---
+class: left, top
+background-image: url(img/icon_lettering_color_large-faded.png)
+background-size: contain
+background-position: 50% 50%
+
+# The 'autotest' package
+
+```{r mkpkg, echo = FALSE, output = FALSE, message = FALSE}
+rm (addtwo)
+if (dir.exists (file.path (here::here (), "demo")))
+    unlink (file.path (here::here (), "demo"),
+            recursive = TRUE)
+x <- capture.output (source ("mkpkg.R"))
+path <- file.path (here::here (), "demo")
+out <- capture.output (roxygen2::roxygenise (path))
 ```
-```{r roxygen-srr-demo-hidden, echo = FALSE, eval = TRUE, message = TRUE, output = FALSE}
-library (srr)
-path <- srr_stats_pkg_skeleton()
-x <- capture.output (
-    roxygen2::roxygenise (path)
-)
+```{r autotest1-fakey, eval = FALSE}
+library (autotest)
+autotest_package (path, test = TRUE)
 ```
+```{r autotest1, eval = TRUE, echo = FALSE, collapse = TRUE}
+library (autotest)
+path <- file.path (here::here (), "demo")
+a1 <- autotest_package (path, test = TRUE)
+print (as.data.frame (a1))
+```
+
+
+
+---
+class: left, top
+background-image: url(img/icon_lettering_color_large-faded.png)
+background-size: contain
+background-position: 50% 50%
+
+# The 'autotest' package
+
+```{r add-ex-to-demo, echo = FALSE, message = FALSE, eval = FALSE}
+path <- file.path (here::here (), "demo")
+f <- file.path (path, "R", "test.R")
+x <- readLines (f)
+i <- max (grep ("^#' @", x))
+x <- c (x [1:i],
+        "#' @examples",
+        "#' y <- addtwo (1, 2)",
+        x [-seq (i)])
+writeLines (x, f)
+out <- capture.output (roxygen2::roxygenise (path))
+```
+```{r demo-ex, eval = FALSE}
+#' @examples
+#' addtwo (1, 2)
+```
+```{r autotest2-fakey, eval = FALSE}
+autotest_package (path, test = TRUE)$content
+```
+```{r autotest2, eval = TRUE, echo = FALSE, collapse = TRUE}
+x <- c ("[1] Parameter [x] is not specified as integer, yet only used as such;\n",
+        "    please use '1L' for integer, or 1.0 for non-integer values.\n",
+        "[2] Parameter [x] of function [addtwo] is assumed to be a single numeric,\n",
+        "    but responds to vectors of length > 1\n",
+        "[3] Parameter [y] is not specified as integer, yet only used as such;\n",
+        "    please use '1L' for integer, or 1.0 for non-integer values.\n",
+        "[4] Parameter [y] of function [addtwo] is assumed to be a single numeric,\n",
+        "    but responds to vectors of length > 1")
+message (x)
+```
+
+
 
 ---
 class: left, top
