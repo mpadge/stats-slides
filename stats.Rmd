@@ -46,7 +46,7 @@ background-position: 50% 50%
 
 - Introduction (5 min)
 - rOpenSci Peer Review + Statistical Standards - Noam Ross (15 min)
-- Package Development tools: *srr*, **autotest**, and **pkgcheck**  - Mark Padgham (25 min)
+- Package Development tools: **srr**, **autotest**, and **pkgcheck**  - Mark Padgham (25 min)
 - Q & A (15 min)
 
 Collaborative note-taking (Please add your name, questions, notes): <https://bit.ly/ro-stats-tools>
@@ -62,9 +62,9 @@ background-position: 50% 50%
 # rOpenSci Software Peer Review
 
 - A peer-review system integrating practices from software development and academic publishing
-- Designed to improve software and expand a community of practices, via transparent, constructive, non-adversarial and open review"
-- Has historically covered packages that support the data management life cycle
 - 7 years experience, hundreds of packages, authors and reviewers
+- Designed to improve software and expand a community of practices, via transparent, constructive, non-adversarial and open review
+- Has historically covered packages that support the _data management life cycle_
 
 Example Review: <https://github.com/ropensci/software-review/issues/409>
 
@@ -93,15 +93,20 @@ background-position: 50% 50%
 
 # Expanding Peer Review for Statistical Software
 
--  Many new challenges for statistical software
--  A community-driven process for what needed to be included in standards
+-  New community-driven standards to deal with statistics-specific challenges
 -  Sub-standards for different statistical fields
--  A process for introducing new standards
+-  Raising the bar means helping people over it
    - Graded badging (standard, silver, gold)
    - Community events (like this)
-   - Tools and documentation to support package authors
+   - Tools and documentation to support and simplify workflows
 
 Standards and process all documented at: <https://stats-devguide.ropensci.org/>
+
+---
+class: left, top
+background-image: url(img/package-flow.png)
+background-size: contain
+background-position: 50% 50%
 
 ---
 class: left, top
@@ -360,24 +365,6 @@ background-position: 50% 50%
 
 - Also extensible, with alternative standards substituted by modifying a single
   URL
-
----
-class: left, top
-background-image: url(img/icon_lettering_color_large-faded.png)
-background-size: contain
-background-position: 50% 50%
-
-# Tools for Package Authors
-
-- All tools can and should be used from the moment a package first takes form
-
-- `srr` = "software review roclets" for documenting standards compliance
-  within a package
-
-- .large[ `autotest` for automated testing ]
-
-- `pkgcheck` to confirm whether a (statistics or other) package is ready for
-  submission
 
 ---
 class: left, top
