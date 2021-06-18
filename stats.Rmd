@@ -118,13 +118,101 @@ background-position: 50% 50%
 
 - All tools can and should be used from the moment a package first takes form
 
-- `srr` = "software review roclets" for documenting standards compliance
-  within a package
+- [`pkgcheck`](https://github.com/ropensci-review/tools/pkgcheck) to confirm
+  whether a (statistics or other) package is ready for submission
 
-- `autotest` for automated testing
+- [`srr`](https://github.com/ropensci-review/tools/srr) = "software review
+  roclets" for documenting standards compliance within a package
 
-- `pkgcheck` to confirm whether a (statistics or other) package is ready for
-  submission
+- [`autotest`](https://github.com/ropensci-review/tools/autotest) for automated
+  testing - see UseR2021 talk in 2 weeks time, and package vignette
+
+
+---
+class: left, top
+background-image: url(img/icon_lettering_color_large-faded.png)
+background-size: contain
+background-position: 50% 50%
+
+# The 'pkgcheck' package
+
+```{r pkgcheck-run, eval = FALSE, echo = FALSE}
+path <- "/<local>/<path>/<to>/skimr"
+library (pkgcheck)
+chk <- pkgcheck (path)
+saveRDS (chk, "pkgcheck-demo.Rds")
+```
+```{r pkgcheck1-fakey, eval = FALSE, echo = TRUE}
+library (pkgcheck)
+chk <- pkgcheck ("/<local>/<path>/<to>/skimr")
+summary (chk)
+```
+
+```{r pkgcheck-out, echo = FALSE, collapse = TRUE}
+library (pkgcheck)
+chk <- readRDS ("pkgcheck-demo.Rds")
+summary (chk)
+```
+
+---
+class: left, top
+background-image: url(img/icon_lettering_color_large-faded.png)
+background-size: contain
+background-position: 50% 50%
+
+# The 'pkgcheck' package
+
+```{r pkgcheck2-fakey, eval = FALSE, echo = TRUE}
+library (pkgcheck)
+chk <- pkgcheck (path)
+# print (chk) # lots of output!
+names (chk)
+```
+
+```{r pkgcheck2-out, echo = FALSE, collapse = TRUE}
+library (pkgcheck)
+chk <- readRDS ("pkgcheck-demo.Rds")
+print (names (chk), width = 50)
+```
+
+--
+
+Can also render to GitHub-markdown<br>and open local .html version:
+
+```{r chks2md, eval = FALSE}
+md <- checks_to_markdown (chk, render = TRUE)
+```
+
+---
+class: left, top
+background-image: url(img/icon_lettering_color_large-faded.png)
+background-size: contain
+background-position: 50% 50%
+
+# The 'pkgcheck' package
+
+The [`mpadge/stats-slides` repo](https://github.com/mpadge/stats-slides) has
+[results of running `pkgcheck()` on URLs given in registration
+form](https://github.com/mpadge/stats-slides/issues):
+
+- [`skimr`](https://github.com/mpadge/stats-slides/issues/3) +
+[html](https://mpadge.github.io/stats-slides/static/skimr-pkgcheck.html)
+
+- [`aum`](https://github.com/mpadge/stats-slides/issues/4) +
+[html](https://mpadge.github.io/stats-slides/static/aum-pkgcheck.html)
+
+- [`textComplexity`](https://github.com/mpadge/stats-slides/issues/5) +
+[html](https://mpadge.github.io/stats-slides/static/testComplexity-pkgcheck.html)
+
+- [`RcppDeepState`](https://github.com/mpadge/stats-slides/issues/6) +
+[html](https://mpadge.github.io/stats-slides/static/RcppDeepState-pkgcheck.html)
+
+
+---
+class: left, top
+background-image: url(img/package-flow.png)
+background-size: contain
+background-position: 50% 50%
 
 
 ---
@@ -134,25 +222,6 @@ background-size: contain
 background-position: 50% 50%
 
 # Software Review Roclets:<br>The 'srr' package
-
-## Why?
-
-- Standards hard to keep track of for both authors and reviewers
-
-- `srr` lets you build standards tracking into your development process
-
-- Enables complete documentation of standards compliance
-
-
----
-class: left, top
-background-image: url(img/icon_lettering_color_large-faded.png)
-background-size: contain
-background-position: 50% 50%
-
-# Software Review Roclets:<br>The 'srr' package
-
-## roxygen2
 
 ```{r roxygen-ex}
 #' Function to add two numbers
@@ -166,45 +235,6 @@ addtwo <- function (x, y) {
     return (x + y)
 }
 ```
-
---
-
-Run `roxygen2::roxygenise()` to turn<br>that into `/man` file `Addtwo.Rd`
-
-
----
-class: left, top
-background-image: url(img/icon_lettering_color_large-faded.png)
-background-size: contain
-background-position: 50% 50%
-
-# Software Review Roclets:<br>The 'srr' package
-
-- `roxygen2` is extensible, and allows custom "roclets"
-
-- Everything following `@` is a "tag"
-
-- Each "roclet" has a generic `process` method, and an `output` method to
-  output information to the `.Rd` file
-
-- Setting `output` method to `NULL` allows new tags with arbitrary `process`
-  methods that do not appear in package documentation.
-
----
-class: left, top
-background-image: url(img/icon_lettering_color_large-faded.png)
-background-size: contain
-background-position: 50% 50%
-
-# Software Review Roclets:<br>The 'srr' package
-
-- `srr` introduces new tags for documenting standards:
-    - `@srrstats` for adherence to standards
-    - `@srrstatsNA` for non-applicable standards
-    - `@srrstatsTODO` for standards yet to be addressed
-
-- Running `roxygen2::roxygenise()` automatically generates a summary report of
-  standards compliance on screen
 
 ---
 class: left, top
@@ -222,6 +252,9 @@ background-position: 50% 50%
 #' @param y Second input
 #' @return Sum of x and y
 #' @export
+#'
+#' @srrstats {G1.1} Primary citation for this function follows
+#' @references Smith & Jones (2021) A new addition algorithm
 addtwo <- function (x, y) {
     return (x + y)
 }
@@ -236,21 +269,15 @@ background-position: 50% 50%
 
 # Software Review Roclets:<br>The 'srr' package
 
-```{r roxygen-ex-srr}
-#' Function to add two numbers
-#'
-#' @rdtitle Addtwo
-#' @param x First input
-#' @param y Second input
-#' @return Sum of x and y
-#' @export
-#'
-#' @srrstats {G1.1} Primary citation for this function follows
-#' @references Smith & Jones (2021) A new addition algorithm
-addtwo <- function (x, y) {
-    return (x + y)
-}
-```
+- `srr` introduces new tags for documenting standards:
+    - `@srrstats` for adherence to standards
+    - `@srrstatsNA` for non-applicable standards
+    - `@srrstatsTODO` for standards yet to be addressed
+
+- Running `roxygen2::roxygenise()` automatically generates a summary report of
+  standards compliance on screen
+
+- `devtools::document()` and `roxygen2::roxygenise()` are the same function
 
 ---
 class: left, top
@@ -355,205 +382,25 @@ background-image: url(img/icon_lettering_color_large-faded.png)
 background-size: contain
 background-position: 50% 50%
 
-# Software Review Roclets: The 'srr' package
+# The 'srr' package: How To
 
-- `srr_report()` function generates a `.html` report of standards compliance
+- Insert standards into package with `srr_stats_roxygen()`
 
-- [Example](https://ropensci-review-tools.github.io/roreviewapi/static/demo_srr77dfe392.html)
+- .large[ Comply with standards ]
 
---
+- Update documentation to automatically generate compliance report
+
+- Generate hyperlinked `html` version with `srr_report()` function
 
 - Also extensible, with alternative standards substituted by modifying a single
   URL
 
----
-class: left, top
-background-image: url(img/icon_lettering_color_large-faded.png)
-background-size: contain
-background-position: 50% 50%
-
-# The 'autotest' package
-
-## Why?
-
-- Make code more robust
-
-- Find bugs before other users or reviewers find them
 
 ---
 class: left, top
-background-image: url(img/icon_lettering_color_large-faded.png)
+background-image: url(img/package-flow.png)
 background-size: contain
 background-position: 50% 50%
-
-# The 'autotest' package
-
-## How?
-
-- A form of "mutation testing"
-
-- Identifies all inputs to all functions through extracting documented example
-  code
-
-- Mutates those inputs
-
-- Also matches input and output types to descriptions
-
----
-class: left, top
-background-image: url(img/icon_lettering_color_large-faded.png)
-background-size: contain
-background-position: 50% 50%
-
-# The 'autotest' package
-
-```{r mkpkg, echo = FALSE, output = FALSE, message = FALSE}
-rm (addtwo)
-if (dir.exists (file.path (here::here (), "demo")))
-    unlink (file.path (here::here (), "demo"),
-            recursive = TRUE)
-x <- capture.output (source ("mkpkg.R"))
-path <- file.path (here::here (), "demo")
-out <- capture.output (roxygen2::roxygenise (path))
-```
-```{r autotest1-fakey, eval = FALSE}
-library (autotest)
-autotest_package (path, test = TRUE)
-```
-```{r autotest1, eval = TRUE, echo = FALSE, collapse = TRUE}
-library (autotest)
-path <- file.path (here::here (), "demo")
-a1 <- autotest_package (path, test = TRUE)
-print (as.data.frame (a1))
-```
-
-
-
----
-class: left, top
-background-image: url(img/icon_lettering_color_large-faded.png)
-background-size: contain
-background-position: 50% 50%
-
-# The 'autotest' package
-
-```{r add-ex-to-demo, echo = FALSE, message = FALSE, eval = FALSE}
-path <- file.path (here::here (), "demo")
-f <- file.path (path, "R", "test.R")
-x <- readLines (f)
-i <- max (grep ("^#' @", x))
-x <- c (x [1:i],
-        "#' @examples",
-        "#' y <- addtwo (1, 2)",
-        x [-seq (i)])
-writeLines (x, f)
-out <- capture.output (roxygen2::roxygenise (path))
-```
-```{r demo-ex, eval = FALSE}
-#' @examples
-#' addtwo (1, 2)
-```
-```{r autotest2-fakey, eval = FALSE}
-autotest_package (path, test = TRUE)$content
-```
-```{r autotest2, eval = TRUE, echo = FALSE, collapse = TRUE}
-x <- c ("[1] Parameter [x] is not specified as integer, yet only used as such;\n",
-        "    please use '1L' for integer, or 1.0 for non-integer values.\n\n",
-        "[2] Parameter [x] of function [addtwo] is only used a a single\n",
-        "    numeric value, but responds to vectors of length > 1\n\n",
-        "[3] Parameter [y] is not specified as integer, yet only used as such;\n",
-        "    please use '1L' for integer, or 1.0 for non-integer values.\n\n",
-        "[4] Parameter [y] of function [addtwo] is only used a a single\n",
-        "    numeric value, but responds to vectors of length > 1")
-message (x)
-```
-
----
-class: left, top
-background-image: url(img/icon_lettering_color_large-faded.png)
-background-size: contain
-background-position: 50% 50%
-
-# Tools for Package Authors
-
-- All tools can and should be used from the moment a package first takes form
-
-- `srr` = "software review roclets" for documenting standards compliance
-  within a package
-
-- `autotest` for automated testing
-
-- .large[ `pkgcheck` to confirm whether a (statistics or other) package is ready for
-  submission]
-
-
----
-class: left, top
-background-image: url(img/icon_lettering_color_large-faded.png)
-background-size: contain
-background-position: 50% 50%
-
-# The 'pkgcheck' package
-
-## Why?
-
-- To confirm whether a package is ready for submission
-
-- To provide a statistical overview of package structure relative to all other
-  CRAN packages
-
-- To generate useful information for package reviewers
-
-
----
-class: left, top
-background-image: url(img/icon_lettering_color_large-faded.png)
-background-size: contain
-background-position: 50% 50%
-
-# The 'pkgcheck' package
-
-```{r pkgcheck-run, eval = FALSE, echo = FALSE}
-path <- file.path (here::here (), "demo")
-library (pkgcheck)
-chk <- pkgcheck (path)
-saveRDS (chk, "pkgcheck-demo.Rds")
-```
-```{r pkgcheck1-fakey, eval = FALSE, echo = TRUE}
-library (pkgcheck)
-chk <- pkgcheck (path)
-summary (chk)
-```
-
-```{r pkgcheck-out, echo = FALSE, collapse = TRUE}
-library (pkgcheck)
-chk <- readRDS ("pkgcheck-demo.Rds")
-summary (chk)
-```
-
----
-class: left, top
-background-image: url(img/icon_lettering_color_large-faded.png)
-background-size: contain
-background-position: 50% 50%
-
-# The 'pkgcheck' package
-
-```{r pkgcheck2-fakey, eval = FALSE, echo = TRUE}
-library (pkgcheck)
-chk <- pkgcheck (path)
-# print (chk) # lots of output!
-names (chk)
-```
-
-```{r pkgcheck2-out, echo = FALSE, collapse = TRUE}
-library (pkgcheck)
-chk <- readRDS ("pkgcheck-demo.Rds")
-print (names (chk), width = 50)
-```
-
-[Example here](https://github.com/mpadge/srr-demo/issues/1#issuecomment-853048702)
-
 
 
 ---
@@ -566,11 +413,4 @@ background-position: 50% 50%
 
 - Now accepting submissions
 
-- `srr` provides a comprehensive method for documenting standards
-  compliance within code itself
-
-- Use of `autotest` will enable reviews to better focus on substantive issues of software design and quality
-
-- `pkgcheck` and associated `html` reports facilitate rapid review of standards compliance
-
-- Result should be high quality statistical software with open and demonstrable compliance with standards
+- Contact us at any stage for advice, guidance, answers
