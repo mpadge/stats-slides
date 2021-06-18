@@ -96,7 +96,7 @@ background-position: 50% 50%
 -  New community-driven standards to deal with statistics-specific challenges
 -  Sub-standards for different statistical fields
 -  Raising the bar means helping people over it
-   - Graded badging (standard, silver, gold)
+   - Graded badging (bronze, silver, gold)
    - Community events (like this)
    - Tools and documentation to support and simplify workflows
 
